@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.HBox?>
+
+<HBox fx:id="hbox" prefHeight="40.0" prefWidth="565.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane prefHeight="40.0" prefWidth="457.0">
+         <children>
+            <Label fx:id="label" layoutX="37.0" layoutY="10.0" text="Label" />
+            <TextField fx:id="amountText" layoutX="398.0" layoutY="5.0" onKeyReleased="#onAmountTextType" prefHeight="10.0" prefWidth="39.0" />
+            <Label fx:id="label1" layoutX="331.0" layoutY="10.0" text="amount:" />
+         </children>
+      </AnchorPane>
+      <AnchorPane prefHeight="200.0" prefWidth="200.0">
+         <children>
+            <Button fx:id="removeBtn" layoutX="30.0" layoutY="5.0" mnemonicParsing="false" onAction="#removeBtnPress" text="remove" />
+         </children>
+      </AnchorPane>
+   </children>
+</HBox>

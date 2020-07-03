@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="239.0" prefWidth="307.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.Login">
+   <children>
+      <Label layoutX="109.0" layoutY="50.0" text="选择你的身份" />
+      <Button fx:id="userBtn" layoutX="109.0" layoutY="90.0" mnemonicParsing="false" onAction="#userBtnPress" text="user" />
+      <Button fx:id="managerBtn" layoutX="109.0" layoutY="130.0" mnemonicParsing="false" onAction="#managerBtnPress" text="manager" />
+      <Button fx:id="employeeBtn" layoutX="108.0" layoutY="169.0" mnemonicParsing="false" onAction="#employeeBtnPress" text="employee" />
+   </children>
+</AnchorPane>

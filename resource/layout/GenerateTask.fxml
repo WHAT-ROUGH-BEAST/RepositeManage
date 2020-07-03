@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="520.0" prefWidth="649.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="application.GenerateTaskController">
+   <children>
+      <VBox prefHeight="520.0" prefWidth="649.0">
+         <children>
+            <AnchorPane prefHeight="78.0" prefWidth="649.0">
+               <children>
+                  <Button fx:id="refreshBtn" layoutX="38.0" layoutY="24.0" mnemonicParsing="false" onAction="#refreshBtnPress" text="refresh" />
+                  <Button fx:id="checkoutBtn" layoutX="520.0" layoutY="24.0" mnemonicParsing="false" onAction="#checkoutBtnPress" text="checkout" />
+               </children>
+            </AnchorPane>
+            <ListView fx:id="orderList" prefHeight="442.0" prefWidth="649.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

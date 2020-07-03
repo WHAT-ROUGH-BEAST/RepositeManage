@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.canvas.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="488.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.InventoryController">
+   <children>
+      <VBox prefHeight="489.0" prefWidth="650.0">
+         <children>
+            <AnchorPane prefHeight="84.0" prefWidth="650.0">
+               <children>
+                  <TextField fx:id="shelfText" layoutX="96.0" layoutY="29.0" prefHeight="30.0" prefWidth="102.0" />
+                  <TextField fx:id="locText" layoutX="273.0" layoutY="29.0" prefHeight="30.0" prefWidth="102.0" />
+                  <Label layoutX="42.0" layoutY="34.0" text="shelf: " />
+                  <Label layoutX="234.0" layoutY="34.0" text="loc:" />
+                  <Button fx:id="searchBtn" layoutX="384.0" layoutY="29.0" mnemonicParsing="false" onAction="#searchBtnPress" text="search" />
+                  <Button fx:id="reportBtn" layoutX="536.0" layoutY="29.0" mnemonicParsing="false" onAction="#reportBtnPress" text="report" />
+               </children>
+            </AnchorPane>
+            <ListView fx:id="productList" prefHeight="407.0" prefWidth="650.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
