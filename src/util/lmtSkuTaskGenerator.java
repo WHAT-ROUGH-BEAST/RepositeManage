@@ -7,6 +7,7 @@ import java.util.List;
 import javaBean.Order;
 import javaBean.PickingTask;
 import javaBean.Product;
+import javaBean.ReturnTask;
 
 public class lmtSkuTaskGenerator implements TaskGenerator
 {
@@ -15,13 +16,13 @@ public class lmtSkuTaskGenerator implements TaskGenerator
 	private LinkedList<Product> taskItems = new LinkedList<>();
 	
 	private int skuLmt;
-	
+	 
 	public lmtSkuTaskGenerator(List<Object> attr)
 	{
 		skuLmt = (int) attr.get(0);
 	}
 
-	@Override
+	@Override 
 	public LinkedList<PickingTask> generateTask(List<Order> orders)
 	{
 		taskItems = SplitItems(orders);
@@ -30,7 +31,7 @@ public class lmtSkuTaskGenerator implements TaskGenerator
 		int cnt = 0;
 		LinkedList<Product> temp = new LinkedList<Product>();
 		for (Product p : taskItems)
-		{
+		{ 
 			if (cnt == skuLmt)
 			{
 				cnt = 0;
@@ -46,8 +47,12 @@ public class lmtSkuTaskGenerator implements TaskGenerator
 			}
 		}
 		
-		PickingTask task = (PickingTask)XMLUtil.
-				getBean("PickingTaskconfig", temp);
+		PickingTask task = null;
+		if (orders.get(0).getId() != 0)
+			task = (PickingTask)XMLUtil.getBean("PickingTaskconfig", temp);
+		else
+			task = new ReturnTask(temp);
+		
 		tasks.add(task);
 		
 		return tasks;
@@ -76,6 +81,7 @@ public class lmtSkuTaskGenerator implements TaskGenerator
 		{
 			for (Product p : o.getProducts())
 			{
+	
 				if (p.getAmount() == 1)
 					splitedItems.add(p);
 				else
@@ -92,7 +98,7 @@ public class lmtSkuTaskGenerator implements TaskGenerator
 	{
 		LinkedList<Product> items = new LinkedList<>();
 		int amount = product.getAmount();
-		while (amount >= 0)
+		while (amount > 0)
 		{
 			Product item = (Product) XMLUtil.getBean("Productconfig",
 					product.getId(), 1, product.getLocation());

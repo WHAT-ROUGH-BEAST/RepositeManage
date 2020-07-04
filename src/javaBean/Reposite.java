@@ -25,7 +25,7 @@ public abstract class Reposite
 			throw new RuntimeException();
 		
 		this.name = name;
-		this.shelfs = shelfs;
+		this.shelfs = shelfs; 
 	}
 
 	public String getName()
@@ -107,7 +107,7 @@ public abstract class Reposite
 		return null;
 	}
 	
-	public void addProduct(String id, int amount)
+	public Location addProduct(String id, int amount)
 	{
 		if (null == id)
 			throw new RuntimeException();
@@ -121,14 +121,14 @@ public abstract class Reposite
 		Location l = ((LocationFactory) XMLUtil.
 				getBean("LocationFactoryconfig")).getLocation();
 		l.setLocation(this.name, "null", 0);
-		product.setLocation(l);
+		product.setLocation(l); 
 		
-		for (Shelf s : shelfs)
+		for (Shelf s : shelfs) 
 		{
 			try
 			{
 				s.addProduct(product);
-				return;
+				return l;
 			}
 			catch (Exception e)
 			{

@@ -67,7 +67,7 @@ public abstract class Shelf implements ProductListContainer
 	}
 	
 	public void addProduct(Product product) throws Exception
-	{	
+	{
 		if (null == product)
 			throw new RuntimeException();
 	
@@ -76,7 +76,7 @@ public abstract class Shelf implements ProductListContainer
 		getLoc(l);
 		
 		ListManager.addProduct(product);
-	}
+	} 
 	
 	public void getLoc(Location l)
 	{

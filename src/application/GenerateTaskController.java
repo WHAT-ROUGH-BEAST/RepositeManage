@@ -5,9 +5,13 @@ import java.util.List;
 
 import ListView.ListItem;
 import ListView.OrderItem;
+import javaBean.OnlyRepoLocation;
 import javaBean.Order;
 import javaBean.Product;
 import javaBean.Reposite;
+import javaBean.ReturnOrder;
+import javaBean.SimpleOrder;
+import javaBean.SimpleProduct;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -16,13 +20,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.util.Callback;
 import util.CheckoutHelper;
+import util.Location;
 import util.XMLUtil;
 
 public class GenerateTaskController implements DataShare
 {
-	@FXML private Button refreshBtn, checkoutBtn, importBtn;
+	@FXML private Button refreshBtn, checkoutBtn, importBtn, returnBtn;
 	@FXML private ListView<Order> orderList;
-	@FXML private TextField importText;
+	@FXML private TextField importText; 
 	
 	private CheckoutHelper checkoutHelper;
 	
@@ -35,7 +40,30 @@ public class GenerateTaskController implements DataShare
 		for (Order o : orders)
 		{
 			orderList.getItems().add(o);
+		} 
+	}
+	
+	@FXML 
+	public void returnBtnPress()
+	{
+		Order order = new SimpleOrder();
+		order = new ReturnOrder(order);
+		order.setBuyerName("XNOMD2");
+		try
+		{
+			Location l = new OnlyRepoLocation();
+			l.setLocation(l.getRepo(), "A", 1);
+			order.addProduct((Product) XMLUtil.getBean("Productconfig", 
+					"33783757-e89e-3262-f0a4-e9db956ca1c3", 2, l));
+//			order.addProduct(product);
 		}
+		catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
+		orderList.getItems().add(order);
+		checkoutHelper.addOrder(order);
 	}
 	
 	@FXML

@@ -18,7 +18,7 @@ import util.CheckoutHelper;
 
 public class DoTaskController implements DataShare
 {
-	@FXML private Button refreshBtn, pickBtn;
+	@FXML private Button refreshBtn, pickBtn; 
 	@FXML private ListView<String> itemList;
 	@FXML private TextField textField;
 	
@@ -30,7 +30,10 @@ public class DoTaskController implements DataShare
 	public void refreshBtnPress()
 	{
 		if (!itemList.getItems().isEmpty())
+		{
 			UiUtil.showAlert("请先完成当前任务");
+			return;
+		}
 		
 		try
 		{
@@ -41,16 +44,17 @@ public class DoTaskController implements DataShare
 				itemList.getItems().add(
 						"ID: " + p.getId() + 
 						"  \t Amount: " + p.getAmount() + 
-						"\t Location: " + reposite.search(p.getId()).getLocation());
+						"\t Location: " + p.getLocation());
 			}
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			UiUtil.showAlert(e.getMessage());
 			task = null;
 			return;
 		}
-	}
+	} 
 	
 	@FXML 
 	public void pickBtnPress()

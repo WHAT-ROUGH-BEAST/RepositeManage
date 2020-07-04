@@ -54,7 +54,7 @@ public class AddProductController implements DataShare
 			UiUtil.showAlert(e.getMessage());
 		}
 		
-		initList();
+		initList(); 
 	}
 	
 	private void initList()

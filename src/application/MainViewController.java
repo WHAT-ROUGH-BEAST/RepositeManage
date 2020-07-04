@@ -16,7 +16,9 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.scene.layout.AnchorPane;
 import util.CheckoutHelper;
+import util.CheckoutNReturnHelper;
 import util.DataBase;
+import util.SimpleCheckoutHelper;
 
 /*
  * ÷–ΩÈ’ﬂ
@@ -34,7 +36,9 @@ public class MainViewController
 		reposite = db.getRepo("defaultReposite");
 		db.killInstance();
 		
-		checkoutHelper = new CheckoutHelper(new ArrayList<Reposite>(Arrays.asList(reposite)));
+		CheckoutHelper helperComponent = new SimpleCheckoutHelper(
+				new ArrayList<Reposite>(Arrays.asList(reposite)));
+		checkoutHelper = new CheckoutNReturnHelper((SimpleCheckoutHelper) helperComponent);
 	}
 
 	public void setIdentity(String identity)
@@ -45,7 +49,7 @@ public class MainViewController
 		switch (identity)
 		{
 		case "user":
-			initTab(searchTab, "Search");
+//			initTab(searchTab, "Search");
 			initTab(orderTab, "Order");
 			break;
 		case "manager":

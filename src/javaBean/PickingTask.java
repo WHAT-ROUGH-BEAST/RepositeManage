@@ -9,7 +9,7 @@ public abstract class PickingTask
 	public PickingTask(LinkedList<Product> products)
 	{
 		this.taskItems = products;
-	}
+	} 
 	
 	public abstract void done(String id);
 	

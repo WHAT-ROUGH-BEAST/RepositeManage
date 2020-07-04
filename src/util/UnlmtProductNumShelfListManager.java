@@ -23,13 +23,12 @@ public class UnlmtProductNumShelfListManager extends ProductListManager
 				|| null == product.getLocation())
 			throw new RuntimeException("invalid product");
 		
-		// ？？？
 		if (true == mergeProduct(product))
 		{
 			Product.updateDBProduct(product);
 		}
 		else
-		{
+		{ 
 			// 数据库 -- 防止本来在其他shelf的的商品重复增加
 			DataBase db = DataBase.getInstance();
 			try
@@ -38,7 +37,7 @@ public class UnlmtProductNumShelfListManager extends ProductListManager
 			}
 			catch (Exception e)
 			{
-				throw new RuntimeException("already in other shelf");
+				throw new Exception("already in other shelf");
 			}
 			finally
 			{
@@ -58,11 +57,12 @@ public class UnlmtProductNumShelfListManager extends ProductListManager
 	{
 		try
 		{
-			super.removeProduct(id);
 			// 数据库
 			DataBase db = DataBase.getInstance();
 			db.removeProduct(id);
 			db.killInstance();
+			
+			super.removeProduct(id);
 		}
 		catch (Exception e)
 		{

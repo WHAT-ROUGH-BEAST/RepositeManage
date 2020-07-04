@@ -97,14 +97,16 @@ public class OrderController implements DataShare
 		
 		productList.setItems(FXCollections.observableArrayList(list));
 		
-		productList.setCellFactory(new Callback<ListView<Product>, ListCell<Product>>(){
+		productList.setCellFactory(new Callback<ListView<Product>, ListCell<Product>>()
+		{
 			@Override
-			public ListCell<Product> call(ListView<Product> list) {
+			public ListCell<Product> call(ListView<Product> list)
+			{
 				ListItem i = new ListItem();
 				i.setList(productList);
 				return i;
 			}
-		});	
+		});
 	}
 
 	@Override

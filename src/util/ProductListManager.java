@@ -44,7 +44,8 @@ public abstract class ProductListManager
 			if (p.getId().equals(product.getId()))
 			{
 				p.setAmount(p.getAmount() + product.getAmount());
-				product = p;
+				product.setAmount(p.getAmount());
+				product.setLocation(p.getLocation());
 				return true;
 			}
 		}
