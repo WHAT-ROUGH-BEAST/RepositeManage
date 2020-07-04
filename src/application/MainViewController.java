@@ -40,7 +40,7 @@ public class MainViewController
 	public void setIdentity(String identity)
 	{
 		Tab searchTab = null, orderTab = null, generateTaskTab = null,
-				doTaskTab = null, invenTab = null;
+				doTaskTab = null, invenTab = null, addProductTab = null;
 		
 		switch (identity)
 		{
@@ -56,6 +56,7 @@ public class MainViewController
 			initTab(searchTab, "Search");
 			initTab(doTaskTab, "DoTask");
 			initTab(invenTab, "Inventory");
+			initTab(addProductTab, "AddProduct");
 			break;
 		}
 	}

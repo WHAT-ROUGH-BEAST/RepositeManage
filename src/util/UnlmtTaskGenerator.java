@@ -9,8 +9,8 @@ import javaBean.Product;
 public class UnlmtTaskGenerator implements TaskGenerator
 {
 	// LinkedList 方便员工得到 task 与 product
-	LinkedList<PickingTask> tasks = new LinkedList<>();
-	LinkedList<Product> taskItems = new LinkedList<>();
+	private LinkedList<PickingTask> tasks = new LinkedList<>();
+	private LinkedList<Product> taskItems = new LinkedList<>();
 	
 	private ProductListManager listManager = new ProductListManager(taskItems)
 	{
@@ -21,9 +21,10 @@ public class UnlmtTaskGenerator implements TaskGenerator
 					|| null == product.getLocation())
 				throw new RuntimeException("invalid product");
 			
-			Product adder = mergeProduct(product);
+			boolean flag = mergeProduct(product);
 			
-			products.add(adder);
+			if (false == flag)
+				products.add(product);
 		}
 	};
 	

@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import util.Location;
+import util.LocationFactory;
+import util.XMLUtil;
+
 public abstract class Reposite
 {
 	protected String name;
@@ -101,5 +105,41 @@ public abstract class Reposite
 		}
 
 		return null;
+	}
+	
+	public void addProduct(String id, int amount)
+	{
+		if (null == id)
+			throw new RuntimeException();
+		if (amount < 0)
+			throw new RuntimeException("数量不合法");
+		
+		Product product = (Product) XMLUtil.getBean("Productconfig");
+		product.setAmount(amount);
+		product.setId(id);
+		
+		Location l = ((LocationFactory) XMLUtil.
+				getBean("LocationFactoryconfig")).getLocation();
+		l.setLocation(this.name, "null", 0);
+		product.setLocation(l);
+		
+		for (Shelf s : shelfs)
+		{
+			try
+			{
+				s.addProduct(product);
+				return;
+			}
+			catch (Exception e)
+			{
+				if ("shelf oversize".equals(e.getMessage()) || 
+						"already in other shelf".equals(e.getMessage()))
+					continue;
+				else
+					e.printStackTrace();
+			}
+		}
+		
+		throw new RuntimeException("仓库已满");	
 	}
 }

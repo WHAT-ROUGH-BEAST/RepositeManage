@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="480.0" prefWidth="642.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.AddProductController">
+   <children>
+      <VBox prefHeight="480.0" prefWidth="642.0">
+         <children>
+            <AnchorPane prefHeight="118.0" prefWidth="642.0">
+               <children>
+                  <TextField fx:id="idText" layoutX="58.0" layoutY="53.0" prefHeight="30.0" prefWidth="333.0" />
+                  <TextField fx:id="amountText" layoutX="464.0" layoutY="53.0" prefHeight="30.0" prefWidth="32.0" />
+                  <Label layoutX="34.0" layoutY="58.0" text="ID: " />
+                  <Label layoutX="399.0" layoutY="58.0" text="amount: " />
+                  <Button fx:id="addBtn" layoutX="524.0" layoutY="53.0" mnemonicParsing="false" onAction="#addBtnPress" text="Add" />
+               </children>
+            </AnchorPane>
+            <ListView fx:id="productList" prefHeight="363.0" prefWidth="642.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

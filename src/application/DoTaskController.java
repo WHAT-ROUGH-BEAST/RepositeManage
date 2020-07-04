@@ -24,11 +24,14 @@ public class DoTaskController implements DataShare
 	
 	private CheckoutHelper checkoutHelper;
 	private PickingTask task;
+	private Reposite reposite;
  
 	@FXML
 	public void refreshBtnPress()
 	{
-		itemList.getItems().clear();
+		if (!itemList.getItems().isEmpty())
+			UiUtil.showAlert("请先完成当前任务");
+		
 		try
 		{
 			task = checkoutHelper.getTask();
@@ -38,7 +41,7 @@ public class DoTaskController implements DataShare
 				itemList.getItems().add(
 						"ID: " + p.getId() + 
 						"  \t Amount: " + p.getAmount() + 
-						"\t Location: " + p.getLocation());
+						"\t Location: " + reposite.search(p.getId()).getLocation());
 			}
 		}
 		catch (Exception e)
@@ -80,6 +83,7 @@ public class DoTaskController implements DataShare
 	@Override
 	public void setReposite(Reposite reposite)
 	{
+		this.reposite = reposite;
 	}
 
 	@Override

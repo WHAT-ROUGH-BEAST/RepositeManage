@@ -2,6 +2,8 @@ package javaBean;
 
 import java.util.*;
 
+import util.Location;
+import util.LocationFactory;
 import util.ProductListManager;
 import util.UnlmtProductNumShelfListManager;
 import util.XMLUtil;
@@ -69,7 +71,22 @@ public abstract class Shelf implements ProductListContainer
 		if (null == product)
 			throw new RuntimeException();
 	
+		Location l = product.getLocation();
+		l.setLocation(l.getRepo(), this.name, 0);
+		getLoc(l);
+		
 		ListManager.addProduct(product);
+	}
+	
+	public void getLoc(Location l)
+	{
+		int i = 1;
+		l.setLocation(l.getRepo(), l.getShelf(), i);
+		while (null != search(l))
+		{
+			i ++;
+			l.setLocation(l.getRepo(), l.getShelf(), i);
+		}
 	}
 	
 	public void removeProduct(String id)

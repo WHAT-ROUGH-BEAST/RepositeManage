@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,17 +19,22 @@ import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 
+import application.UiUtil;
+import javaBean.Order;
+import javaBean.Product;
+import javaBean.Reposite;
+
 public class ReadExcelUtils
 {
 	private Workbook wb;
 	private Sheet sheet;
 	private Row row;
 
-	private ReadExcelUtils(String filepath)
+	public ReadExcelUtils(String filepath)
 	{
 		if (filepath == null)
 		{
-			return;
+			throw new RuntimeException("非法路径");
 		}
 		String ext = filepath.substring(filepath.lastIndexOf("."));
 		try
@@ -89,7 +95,7 @@ public class ReadExcelUtils
 	 * @param InputStream
 	 * @return Map 包含单元格数据内容的Map对象
 	 */
-	private Map<Integer, Map<Integer, Object>> readExcelContent() throws Exception
+	public Map<Integer, Map<Integer, Object>> readExcelContent() throws Exception
 	{
 		if (wb == null)
 		{
@@ -170,77 +176,46 @@ public class ReadExcelUtils
 		return cellvalue;
 	}
 	
-	public static Map<Integer, Map<Integer, Object>> getExcelContent(String filepath)
+	public ArrayList<Order> getOrders(Reposite reposite) throws Exception
 	{
-		ReadExcelUtils excelReader = new ReadExcelUtils(filepath);
-		
-		// 对读取Excel表格内容测试
-		// <row <column value>>
-		// {0=A, 1=1.0, 2=4a507db7-7c52-2c22-d6a6-77ade48625bd, 3=8.0}
-		Map<Integer, Map<Integer, Object>> map;
+		Map<Integer, Map<Integer, Object>> excel;
 		try
 		{
-			map = excelReader.readExcelContent();
-			return map;
+			excel = readExcelContent();
 		}
 		catch (Exception e)
 		{
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new RuntimeException("路径错误");
 		}
 		
-		return null;
+		ArrayList<Order> orders = new ArrayList<>();
+		
+		String buyer;
+		Order temp = null;
+		for (int i : excel.keySet())
+		{
+			Map<Integer, Object> row = excel.get(i);
+			
+			if (!((String)row.get(0)).isEmpty())
+			{
+				temp = (Order) XMLUtil.getBean("Orderconfig");
+				temp.registerRepos(reposite);
+				
+				buyer = (String) row.get(0);
+				temp.setBuyerName(buyer);
+				
+				orders.add(temp);
+			}
+			
+			Product p = (Product) XMLUtil.getBean("Productconfig");
+			p.setId((String) row.get(1));
+			p.setAmount((int) Double.parseDouble((String) row.get(2)));
+			p.setLocation(((LocationFactory) XMLUtil.
+					getBean("LocationFactoryconfig")).getLocation());
+
+			temp.addProduct(p);
+		}
+		
+		return orders;
 	}
-	
-//	// 创建数据库
-//	public static void main(String[] args)
-//	{
-//		DataBase db = DataBase.getInstance();
-//		try
-//		{
-//			Connection con = db.getConnection();
-//			
-//			Map<Integer, Map<Integer, Object>> map = ReadExcelUtils.getExcelContent("C:\\Users\\18069\\Desktop\\reposite_table.xlsx");
-//			
-//			Statement stmt = con.createStatement();
-//			
-//			String loc_s = null;
-//			String sql = null;
-//			for (int i = 1; i < map.size(); i++)
-//			{
-//				if (null == (String) map.get(i).get(2) || 0 == ((String) map.get(i).get(2)).length())
-//					continue;
-//				
-//				String id = (String) map.get(i).get(2);
-//				String amount = (String) map.get(i).get(3);
-//				
-//				if (null != (String) map.get(i).get(0) && 0 != ((String) map.get(i).get(0)).length())
-//					loc_s = (String) map.get(i).get(0);
-//				
-//				String loc_r = "defaultReposite";
-//				
-//				String loc_l = (String) map.get(i).get(1);
-//				
-//				sql	= "INSERT INTO Reposite " + "\n"
-//						+ "VALUES (" + "'" + id  + "'" + ", " 
-//						+ amount + ", "
-//						+ "'" + loc_r + "'" + ", "
-//						+ "'" + loc_s + "'" + ", "
-//						+ loc_l
-//						+ ")";
-//				System.out.println(sql);
-//				stmt.executeUpdate(sql);
-//			}
-//
-//			db.closeConnection(con);
-//		}
-//		catch (Exception e)
-//		{
-//			e.printStackTrace();
-//		}
-//		finally
-//		{
-//			db.killInstance();
-//		}
-//	}
 }

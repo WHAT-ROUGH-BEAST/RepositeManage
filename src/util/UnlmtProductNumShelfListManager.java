@@ -23,21 +23,34 @@ public class UnlmtProductNumShelfListManager extends ProductListManager
 				|| null == product.getLocation())
 			throw new RuntimeException("invalid product");
 		
-		Product adder = mergeProduct(product);
-		
-		products.add(adder);
-		
-		// 超出限制大小
-		if (products.size() > MAX)
+		// ？？？
+		if (true == mergeProduct(product))
 		{
-			products.remove(adder);
-			throw new Exception("shelf oversize");
+			Product.updateDBProduct(product);
 		}
-		
-		// 数据库
-		DataBase db = DataBase.getInstance();
-		db.addProduct(product);
-		db.killInstance();
+		else
+		{
+			// 数据库 -- 防止本来在其他shelf的的商品重复增加
+			DataBase db = DataBase.getInstance();
+			try
+			{
+				db.addProduct(product);
+			}
+			catch (Exception e)
+			{
+				throw new RuntimeException("already in other shelf");
+			}
+			finally
+			{
+				db.killInstance();
+			}
+			
+			// 超出限制大小
+			if (products.size() == MAX)
+				throw new Exception("shelf oversize");
+			
+			products.add(product);
+		}
 	}
 	
 	@Override

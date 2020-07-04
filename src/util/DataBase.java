@@ -355,12 +355,4 @@ public class DataBase implements RepositeDB
 	{
 		return "'" + str + "'";
 	}
-	
-	public static void main(String[] args)
-	{
-		DataBase db = DataBase.getInstance();
-		Reposite repo = db.getRepo("defaultReposite");
-		System.out.println(repo.getName());
-		db.killInstance();
-	}
 }

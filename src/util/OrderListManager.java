@@ -20,19 +20,20 @@ public class OrderListManager extends ProductListManager
 	}
 
 	@Override
-	public void addProduct(final Product product) throws Exception
+	public void addProduct(Product product) throws Exception
 	{
 		if (null == product || null == product.getId() 
 				|| null == product.getLocation())
 			throw new RuntimeException("invalid product");
 		
 		// 如果订单中有同样的商品，则合计
-		Product adder = mergeProduct(product.clone());
+		boolean flag = mergeProduct(product);
 		
 		// 检查是否超过库存
-		checkReposite(adder); // throws Exception
+		checkReposite(product); // throws Exception
 		
-		products.add(adder);
+		if (false == flag)
+			products.add(product);
 	}
 	
 	public void checkReposite(Product product) throws Exception
@@ -52,6 +53,6 @@ public class OrderListManager extends ProductListManager
 			throw new RuntimeException("can't find product id: " + product.getId());
 		
 		if (product.getAmount() > storage.getAmount())
-			throw new Exception("order amount over storage");
+			throw new Exception("超过库存");
 	}
 }

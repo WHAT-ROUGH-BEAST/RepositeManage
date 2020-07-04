@@ -37,18 +37,18 @@ public abstract class ProductListManager
 	}
 	
 
-	protected Product mergeProduct(final Product product)
+	protected boolean mergeProduct(Product product)
 	{
 		for (Product p : products)
 		{
 			if (p.getId().equals(product.getId()))
 			{
-				products.remove(p);
 				p.setAmount(p.getAmount() + product.getAmount());
-				return p;
+				product = p;
+				return true;
 			}
 		}
 		
-		return product;
+		return false;
 	}
 }
