@@ -114,4 +114,9 @@ public class OrderController implements DataShare
 	{
 		checkoutHelper = helper;
 	}
+	
+	@Override
+	public void setName(String name)
+	{	// nothing
+	}
 }

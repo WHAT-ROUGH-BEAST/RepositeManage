@@ -12,7 +12,7 @@
    <children>
       <VBox prefHeight="489.0" prefWidth="650.0">
          <children>
-            <AnchorPane prefHeight="84.0" prefWidth="650.0">
+            <AnchorPane prefHeight="115.0" prefWidth="650.0">
                <children>
                   <TextField fx:id="shelfText" layoutX="96.0" layoutY="29.0" prefHeight="30.0" prefWidth="102.0" />
                   <TextField fx:id="locText" layoutX="273.0" layoutY="29.0" prefHeight="30.0" prefWidth="102.0" />
@@ -20,9 +20,10 @@
                   <Label layoutX="234.0" layoutY="34.0" text="loc:" />
                   <Button fx:id="searchBtn" layoutX="384.0" layoutY="29.0" mnemonicParsing="false" onAction="#searchBtnPress" text="search" />
                   <Button fx:id="reportBtn" layoutX="536.0" layoutY="29.0" mnemonicParsing="false" onAction="#reportBtnPress" text="report" />
+                  <Button fx:id="refreshBtn" layoutX="42.0" layoutY="70.0" mnemonicParsing="false" onAction="#refreshBtnPress" text="refresh" />
                </children>
             </AnchorPane>
-            <ListView fx:id="productList" prefHeight="407.0" prefWidth="650.0" />
+            <ListView fx:id="productList" prefHeight="377.0" prefWidth="650.0" />
          </children>
       </VBox>
    </children>

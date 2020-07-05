@@ -103,4 +103,9 @@ public class DoTaskController implements DataShare
 		
 		itemList.setItems(FXCollections.observableArrayList(list));
 	}
+
+	@Override
+	public void setName(String name)
+	{	//nothing
+	}
 }

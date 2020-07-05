@@ -50,7 +50,7 @@ public abstract class Reposite
 		
 		for (Shelf shelf : shelfs)
 		{
-			if (shelf.getName().equals(name))
+			if (shelf.getName().trim().equals(name))
 				return shelf;
 		}
 		

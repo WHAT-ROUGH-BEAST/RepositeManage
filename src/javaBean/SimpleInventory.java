@@ -10,7 +10,7 @@ public class SimpleInventory implements Inventory
 	private HashMap<String, Integer> changeRecord;
 	private Reposite registeredReposite;
 	
-	public SimpleInventory(List<Object> attr)
+	public SimpleInventory(List<Object> attr) 
 	{
 		Reposite registeredReposite = (Reposite) attr.get(0);
 		
@@ -75,5 +75,10 @@ public class SimpleInventory implements Inventory
 		changeRecord = new HashMap<>();
 		
 		return map;
+	}
+	
+	public HashMap<String, Integer> getCurrRecord()
+	{
+		return changeRecord;
 	}
 }

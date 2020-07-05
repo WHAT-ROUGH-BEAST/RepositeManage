@@ -81,4 +81,9 @@ public class AddProductController implements DataShare
 	{	// nothing
 	}
 
+	@Override
+	public void setName(String name)
+	{	// nothing
+	}
+
 }

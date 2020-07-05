@@ -7,10 +7,12 @@ import java.util.HashMap;
 import ListView.InventoryItem;
 import ListView.OrderItem;
 import javaBean.Inventory;
+import javaBean.InventoryGenerator;
 import javaBean.Order;
 import javaBean.Product;
 import javaBean.Reposite;
 import javaBean.Shelf;
+import javaBean.accurateInventory;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -18,14 +20,16 @@ import javafx.util.Callback;
 import util.CheckoutHelper;
 import util.XMLUtil;
 
-public class InventoryController implements DataShare
+public class InventoryController implements InventoryShare
 {
-	@FXML private Button searchBtn, reportBtn;
+	@FXML private Button searchBtn, reportBtn, refreshBtn;
 	@FXML private TextField locText, shelfText;
 	@FXML private ListView<Product> productList;
 
 	private Reposite reposite;
-	private Inventory inventory;
+	private String name;
+	private InventoryGenerator inventoryGenerator;
+	private accurateInventory inventory;
 	
 	private ArrayList<Product> list;
 	
@@ -33,19 +37,26 @@ public class InventoryController implements DataShare
 	public void setReposite(Reposite reposite)
 	{
 		this.reposite = reposite;
-		initList();
-		inventory = (Inventory) XMLUtil.getBean("Inventoryconfig", reposite);
+	}
+	
+	@Override
+	public void setInventoryGenerator(InventoryGenerator inventoryGenerator)
+	{
+		this.inventoryGenerator = inventoryGenerator;
 	}
 	
 	private void initList()
 	{
-		list = new ArrayList<>();
-		for (Shelf s : reposite.getShelfs())
+		try
 		{
-			for (Product p : s.getProducts())
-			{
-				list.add(p);
-			}
+			inventory = inventoryGenerator.getInventory(name);
+			list = reposite.getShelf(inventory.getShelfName()).getProducts();
+		}
+		catch (Exception e)
+		{
+//			e.printStackTrace();
+			UiUtil.showAlert(e.getMessage());
+			return;
 		}
 		
 		Collections.sort(list);
@@ -60,6 +71,12 @@ public class InventoryController implements DataShare
 				return i;
 			}
 		});
+	}
+	
+	@FXML
+	public void refreshBtnPress()
+	{
+		initList();
 	}
 	
 	@FXML
@@ -93,12 +110,23 @@ public class InventoryController implements DataShare
 	@FXML
 	public void reportBtnPress()
 	{
-		 HashMap<String, Integer> record = inventory.printReport();
-		 for (Product p : productList.getItems())
-		 {
-			 if (record.containsKey(p.getId()));
-			 p.setAmount(record.get(p.getId()));
-		 }
+		ArrayList<Product> pros = new ArrayList<>();
+		HashMap<String, Integer> record = inventory.printReport();
+		for (Product p : productList.getItems())
+		{
+			String id = p.getId();
+			if (record.containsKey(id))
+			{
+				Product pro = p.clone();
+				pro.setAmount(record.get(id));
+				pros.add(pro);
+			}
+		}
+		
+		productList.getItems().clear();
+		productList.getItems().addAll(pros);
+		
+		inventoryGenerator.done(inventory);
 	}
 
 	@Override
@@ -106,4 +134,9 @@ public class InventoryController implements DataShare
 	{	// nothing
 	}
 
+	@Override
+	public void setName(String name)
+	{	
+		this.name = name;
+	}
 }

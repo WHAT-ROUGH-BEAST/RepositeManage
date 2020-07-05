@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.ResourceBundle;
 
+import javaBean.InventoryGenerator;
 import javaBean.Reposite;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -30,23 +31,37 @@ public class MainViewController
 	
 	private static Reposite reposite;
 	private static CheckoutHelper checkoutHelper;
+	private String identity; 
+	private static InventoryGenerator inventoryGenerator;
 	static
 	{
-		DataBase db = DataBase.getInstance();
-		reposite = db.getRepo("defaultReposite");
-		db.killInstance();
+		if (null == reposite)
+		{
+			DataBase db = DataBase.getInstance();
+			reposite = db.getRepo("defaultReposite");
+			db.killInstance();
+		}
 		
-		CheckoutHelper helperComponent = new SimpleCheckoutHelper(
-				new ArrayList<Reposite>(Arrays.asList(reposite)));
-		checkoutHelper = new CheckoutNReturnHelper((SimpleCheckoutHelper) helperComponent);
+		if (null == checkoutHelper)
+		{
+			CheckoutHelper helperComponent = new SimpleCheckoutHelper(
+					new ArrayList<Reposite>(Arrays.asList(reposite)));
+			checkoutHelper = new CheckoutNReturnHelper((SimpleCheckoutHelper) helperComponent);
+		}
+		
+		if (null == inventoryGenerator)
+			inventoryGenerator = new InventoryGenerator();
 	}
 
 	public void setIdentity(String identity)
 	{
-		Tab searchTab = null, orderTab = null, generateTaskTab = null,
-				doTaskTab = null, invenTab = null, addProductTab = null;
+		this.identity = identity;
 		
-		switch (identity)
+		Tab searchTab = null, orderTab = null, generateTaskTab = null,
+				doTaskTab = null, invenTab = null, addProductTab = null, 
+				generateInventoryTab = null;
+		
+		switch (identity.split(":")[0])
 		{
 		case "user":
 //			initTab(searchTab, "Search");
@@ -55,6 +70,7 @@ public class MainViewController
 		case "manager":
 			initTab(searchTab, "Search");
 			initTab(generateTaskTab, "GenerateTask");
+			initTab(generateInventoryTab, "GenerateInventory");
 			break;
 		case "employee":
 			initTab(searchTab, "Search");
@@ -84,6 +100,10 @@ public class MainViewController
 			
 			((DataShare) fxmlLoader.getController()).setReposite(reposite);
 			((DataShare) fxmlLoader.getController()).setCheckoutHelper(checkoutHelper);
+			((DataShare) fxmlLoader.getController()).setName(identity.split(":")[1].trim());
+			
+			if (name.equals("GenerateInventory") || name.equals("Inventory"))
+				((InventoryShare) fxmlLoader.getController()).setInventoryGenerator(inventoryGenerator);
 		}
 		catch (IOException e)
 		{

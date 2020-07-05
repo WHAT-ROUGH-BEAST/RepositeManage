@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane prefHeight="487.0" prefWidth="636.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8" fx:controller="application.GenerateInventoryController">
+   <children>
+      <VBox prefHeight="487.0" prefWidth="636.0">
+         <children>
+            <AnchorPane prefHeight="126.0" prefWidth="636.0">
+               <children>
+                  <TextField fx:id="employeeText" layoutX="114.0" layoutY="40.0" prefHeight="30.0" prefWidth="165.0" />
+                  <TextField fx:id="shelfText" layoutX="338.0" layoutY="40.0" prefHeight="30.0" prefWidth="31.0" />
+                  <TextField fx:id="timeText" layoutX="438.0" layoutY="40.0" prefHeight="30.0" prefWidth="138.0" />
+                  <Label layoutX="35.0" layoutY="45.0" text="employee: " />
+                  <Label layoutX="296.0" layoutY="45.0" text="shelf: " />
+                  <Label layoutX="397.0" layoutY="45.0" text="time: " />
+                  <Button fx:id="deployBtn" layoutX="507.0" layoutY="84.0" mnemonicParsing="false" onAction="#deployBtnPress" text="deploy" />
+                  <Button fx:id="refreshBtn" layoutX="35.0" layoutY="84.0" mnemonicParsing="false" onAction="#refreshBtnPress" text="refresh" />
+               </children>
+            </AnchorPane>
+            <ListView fx:id="employeeList" prefHeight="364.0" prefWidth="636.0" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

@@ -32,8 +32,8 @@ public class SimpleProduct extends Product
 	public int compareTo(Product product)
 	{
 		int compare = 0;
-		compare = this.location.getRepo().compareTo(product.getLocation().getRepo()) * 100
-				+ (this.location.getShelf().charAt(0) - product.getLocation().getShelf().charAt(0)) * 10
+		compare = this.location.getRepo().compareTo(product.getLocation().getRepo()) * 1000
+				+ (this.location.getShelf().compareTo(product.getLocation().getShelf())) * 100
 				+ this.location.getPos() - product.getLocation().getPos();
 		return compare;
 	}

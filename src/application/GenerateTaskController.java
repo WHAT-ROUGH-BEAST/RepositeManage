@@ -139,4 +139,9 @@ public class GenerateTaskController implements DataShare
 			}
 		});	
 	}
+	
+	@Override
+	public void setName(String name)
+	{	//nothing
+	}
 }

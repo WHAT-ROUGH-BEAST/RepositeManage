@@ -1,5 +1,7 @@
 package application;
 
+import java.util.Optional;
+
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -9,6 +11,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.JavaFXBuilderFactory;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -16,6 +19,7 @@ public class Login extends Application
 {
 	@FXML
 	private Button userBtn, managerBtn, employeeBtn;
+	private String loginName;
 	@Override
 	public void start(Stage primaryStage) throws Exception
 	{
@@ -38,19 +42,36 @@ public class Login extends Application
 	@FXML
 	public void userBtnPress()
 	{
-		startMainView("user");
+		startMainView("user: hello");
 	}
 
 	@FXML
 	public void managerBtnPress()
 	{
-		startMainView("manager");
+		startMainView("manager: hello");
 	}
 
 	@FXML
 	public void employeeBtnPress()
 	{
-		startMainView("employee");
+		getNameDialog();
+		
+		startMainView("employee: " + loginName);
+	}
+	
+	private void getNameDialog()
+	{
+		TextInputDialog dialog = new TextInputDialog("login");
+		dialog.setTitle("login");
+		dialog.setHeaderText("your name");
+		Optional<String> result = dialog.showAndWait();
+		
+		result.ifPresent(name -> getName(name));
+	}
+	
+	private void getName(String name)
+	{
+		loginName = name;
 	}
 
 	private void startMainView(String identity)

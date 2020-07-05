@@ -85,7 +85,11 @@ public class SearchController implements DataShare
 
 	@Override
 	public void setCheckoutHelper(CheckoutHelper helper)
-	{
-		
+	{	//nothing
+	}
+	
+	@Override
+	public void setName(String name)
+	{	//nothing
 	}
 }

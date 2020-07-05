@@ -15,8 +15,8 @@ public class InventoryItem  extends ListCell<Product>
         if (product != null && !empty)
         {
         	InventoryView data = new InventoryView();
-            data.setInfo(product);
             data.setInventory(inventory);
+        	data.setInfo(product);
             setGraphic(data.getBox());
         }
         else

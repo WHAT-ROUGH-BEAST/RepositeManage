@@ -14,4 +14,5 @@ public interface Inventory
 	public Product getProduct(String repo, String shelf, int loc);
 	HashMap<String, Integer> printReport(); // елс╞ ел©В
 	void modifyAmount(Product currProduct, int amount);
+	HashMap<String, Integer> getCurrRecord();
 }
