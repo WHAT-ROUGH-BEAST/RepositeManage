@@ -38,7 +38,7 @@ public class XMLUtil
 			Class<?> c = Class.forName(cName);
 			Object obj;
 			if (null == objects)
-				obj = c.newInstance();
+				obj = c.getDeclaredConstructor().newInstance();
 			else
 			{
 				Constructor<?> constructor = c.getConstructor(List.class);

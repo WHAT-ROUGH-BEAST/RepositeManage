@@ -103,7 +103,7 @@ public class InventoryController implements InventoryShare
 		}
 		catch (Exception e)
 		{
-			UiUtil.showAlert("找不对应产品");
+			UiUtil.showAlert("锟揭诧拷锟斤拷应锟斤拷品");
 		}
 	}
 	

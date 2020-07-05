@@ -1,0 +1,16 @@
+/Inventoryconfig.xml
+/ListView/
+/LocationFactoryconfig.xml
+/OrderListManagerconfig.xml
+/Orderconfig.xml
+/PickingTaskconfig.xml
+/Productconfig.xml
+/Repoconfig.xml
+/ShelfListManagerconfig.xml
+/Shelfconfig.xml
+/TaskGeneratorconfig.xml
+/application/
+/importDB
+/javaBean/
+/layout/
+/util/

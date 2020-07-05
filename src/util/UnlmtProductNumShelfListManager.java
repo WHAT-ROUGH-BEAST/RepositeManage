@@ -29,6 +29,10 @@ public class UnlmtProductNumShelfListManager extends ProductListManager
 		}
 		else
 		{ 
+			// 超出限制大小
+			if (products.size() == MAX || product.getLocation().getPos() > MAX)
+				throw new Exception("shelf oversize");
+			
 			// 数据库 -- 防止本来在其他shelf的的商品重复增加
 			DataBase db = DataBase.getInstance();
 			try
@@ -43,10 +47,6 @@ public class UnlmtProductNumShelfListManager extends ProductListManager
 			{
 				db.killInstance();
 			}
-			
-			// 超出限制大小
-			if (products.size() == MAX)
-				throw new Exception("shelf oversize");
 			
 			products.add(product);
 		}
