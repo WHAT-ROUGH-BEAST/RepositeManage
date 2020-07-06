@@ -11,6 +11,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.management.RuntimeErrorException;
+
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.DateUtil;
@@ -210,7 +212,14 @@ public class ReadExcelUtils
 			Product p = (Product) XMLUtil.getBean("Productconfig");
 			p.setId((String) row.get(1));
 			p.setAmount((int) Double.parseDouble((String) row.get(2)));
-			p.setLocation(reposite.search(p.getId()).getLocation());
+			try
+			{
+				p.setLocation(reposite.search(p.getId()).getLocation());
+			}
+			catch (Exception e)
+			{
+				throw new RuntimeException("订单中出现本仓库没有的产品" + p.getId());
+			}
 
 			temp.addProduct(p);
 		}

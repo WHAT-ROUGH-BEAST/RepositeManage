@@ -21,7 +21,7 @@ public class ReturnTask extends PickingTask
 		
 		for (Product p : taskItems)
 		{
-			if (p.getId().equals(id.split(":")[1].trim()))
+			if (p.getId().contains(id))
 			{
 				taskItems.remove(p);
 				return;

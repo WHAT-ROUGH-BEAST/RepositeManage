@@ -358,4 +358,58 @@ public class DataBase implements RepositeDB
 	{
 		return "'" + str + "'";
 	}
+	
+////// 创建数据库
+//public static void main(String[] args)
+//{
+//	DataBase db = DataBase.getInstance();
+//	try
+//	{
+//		Connection con = db.getConnection();
+//		
+//		ReadExcelUtils excelReader = new ReadExcelUtils("C:\\Users\\18069\\Desktop\\reposite_table.xlsx");
+//		
+//		Map<Integer, Map<Integer, Object>> map = excelReader.readExcelContent();
+//		
+//		Statement stmt = con.createStatement();
+//		
+//		String loc_s = null;
+//		String sql = null;
+//		for (int i = 1; i < map.size(); i++)
+//		{
+//			if (null == (String) map.get(i).get(2) || 0 == ((String) map.get(i).get(2)).length())
+//				continue;
+//			
+//			String id = (String) map.get(i).get(2);
+//			String amount = (String) map.get(i).get(3);
+//			
+//			if (null != (String) map.get(i).get(0) && 0 != ((String) map.get(i).get(0)).length())
+//				loc_s = (String) map.get(i).get(0);
+//			
+//			String loc_r = "defaultReposite";
+//			
+//			String loc_l = (String) map.get(i).get(1);
+//			
+//			sql	= "INSERT INTO Reposite " + "\n"
+//					+ "VALUES (" + "'" + id  + "'" + ", " 
+//					+ amount + ", "
+//					+ "'" + loc_r + "'" + ", "
+//					+ "'" + loc_s + "'" + ", "
+//					+ loc_l
+//					+ ")";
+//			System.out.println(sql);
+//			stmt.executeUpdate(sql);
+//		}
+//
+//		db.closeConnection(con);
+//	}
+//	catch (Exception e)
+//	{
+//		e.printStackTrace();
+//	}
+//	finally
+//	{
+//		db.killInstance();
+//	}
+//}
 }

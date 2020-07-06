@@ -80,6 +80,7 @@ public class DoTaskController implements DataShare
 		}
 		catch (Exception e)
 		{
+			e.printStackTrace();
 			UiUtil.showAlert(e.getMessage());
 		}
 	}

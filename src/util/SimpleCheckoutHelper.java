@@ -60,6 +60,8 @@ public class SimpleCheckoutHelper implements CheckoutHelper
 	@Override
 	public void checkout()
 	{
+		if (orders.isEmpty())
+			return;
 		// ¸üÐÂ²Ö¿â
 		ArrayList<Product> checkoutProducts = new ArrayList<>();
 		for (Order o : orders)

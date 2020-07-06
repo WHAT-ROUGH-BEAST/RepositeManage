@@ -61,15 +61,21 @@ public class GenerateInventoryController implements InventoryShare
 			}
 			catch (Exception e)
 			{
-				UiUtil.showAlert(employee + "已完成任务" + e.getMessage());
+				UiUtil.showAlert(employee + "已完成任务, " + e.getMessage());
+				employees.remove(employee);
+				
+				refreshBtnPress();
+				return;
 			}
-			
-			for (String content : employeeList.getItems())
+			finally
 			{
-				if (content.split(" ")[1].trim().equals(employee))
+				for (String content : employeeList.getItems())
 				{
-					employeeList.getItems().remove(content);
-					break;
+					if (content.split(" ")[1].trim().equals(employee))
+					{
+						employeeList.getItems().remove(content);
+						break;
+					}
 				}
 			}
 			
