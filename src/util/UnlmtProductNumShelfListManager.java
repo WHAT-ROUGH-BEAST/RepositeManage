@@ -1,6 +1,9 @@
 package util;
 
+import java.sql.SQLException;
 import java.util.List;
+
+import com.microsoft.sqlserver.jdbc.SQLServerException;
 
 import javaBean.Product;
 import javaBean.ProductListContainer;
@@ -39,9 +42,10 @@ public class UnlmtProductNumShelfListManager extends ProductListManager
 			{
 				db.addProduct(product);
 			}
-			catch (Exception e)
+			catch (SQLServerException e)
 			{
-				throw new Exception("already in other shelf");
+				System.out.println("i can catch sqlexception");
+				throw e;
 			}
 			finally
 			{

@@ -71,8 +71,7 @@ public class ReadXmlUtils
             	int amount = Integer.parseInt(
             			(childNode.getAttributes().item(0).getNodeValue()));
             	String id = childNode.getFirstChild().getNodeValue();
-            	Location l = ((LocationFactory) XMLUtil.
-    					getBean("LocationFactoryconfig")).getLocation();
+            	Location l = reposite.search(id).getLocation();
             	Product p = (Product) XMLUtil.getBean("Productconfig", id, amount, l);
 				temp.addProduct(p);
             }

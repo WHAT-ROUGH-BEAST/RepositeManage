@@ -6,14 +6,14 @@ import util.Location;
 import util.LocationFactory;
 import util.XMLUtil;
 
-public class accurateInventory implements Inventory
+public class AccurateInventory implements Inventory
 {
 	private Inventory invenComponent;
 	private String employeeName;
 	private String shelf;
 	private String time;
 	
-	public accurateInventory(Inventory invenComponent)
+	public AccurateInventory(Inventory invenComponent)
 	{
 		this.invenComponent = invenComponent;
 	}

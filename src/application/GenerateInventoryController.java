@@ -23,7 +23,7 @@ public class GenerateInventoryController implements InventoryShare
 	@FXML
 	public void deployBtnPress()
 	{
-		String employeeName = employeeText.getText();
+		String employeeName = employeeText.getText().trim();
 		String shelf = shelfText.getText();
 		String time = timeText.getText();
 		
@@ -31,6 +31,15 @@ public class GenerateInventoryController implements InventoryShare
 		{
 			UiUtil.showAlert("不合法输入");
 			return;
+		}
+		
+		for (String e : employees)
+		{
+			if (e.equals(employeeName))
+			{
+				UiUtil.showAlert(employeeName + "已有任务");
+				return;
+			}
 		}
 		
 		inventoryGenerator.deployInventory(reposite, employeeName, shelf, time);
@@ -45,18 +54,22 @@ public class GenerateInventoryController implements InventoryShare
 	{
 		for (String employee : employees)
 		{
-			double progress = inventoryGenerator.getProgress(employee);
+			double progress = 0;
+			try
+			{
+				progress = inventoryGenerator.getProgress(employee);
+			}
+			catch (Exception e)
+			{
+				UiUtil.showAlert(employee + "已完成任务" + e.getMessage());
+			}
 			
 			for (String content : employeeList.getItems())
 			{
 				if (content.split(" ")[1].trim().equals(employee))
 				{
 					employeeList.getItems().remove(content);
-					employeeList.getItems().add(
-							"employee: " + employee
-							+ " \tprogress: " + getProgressFig(progress) + " "
-							+ progress);
-					return;
+					break;
 				}
 			}
 			
@@ -75,9 +88,9 @@ public class GenerateInventoryController implements InventoryShare
 		for (int i = 0; i < max; i++)
 		{
 			if (i < (int) max * progress)
-				s.append("\\\\");
+				s.append("\\");
 			else
-				s.append("  ");
+				s.append(" ");
 		}
 		
 		s.append("|");

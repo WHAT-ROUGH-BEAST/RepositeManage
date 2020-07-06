@@ -41,24 +41,27 @@ public class CheckoutNReturnHelper implements CheckoutHelper
 	@Override
 	public void checkout()
 	{
-		ArrayList<Product> returnProducts = new ArrayList<>();
-		for (Order o : returnOrders)
+		if (!returnOrders.isEmpty())
 		{
-			returnProducts.addAll(o.getProducts());
-		}
-		
-		for (Product p : returnProducts)
-		{
-			for (Reposite r : repos)
+			ArrayList<Product> returnProducts = new ArrayList<>();
+			for (Order o : returnOrders)
 			{
-				Location l = r.addProduct(p.getId(), p.getAmount());
-				p.setLocation(l);
+				returnProducts.addAll(o.getProducts());
 			}
+			
+			for (Product p : returnProducts)
+			{
+				for (Reposite r : repos)
+				{
+					Location l = r.addProduct(p.getId(), p.getAmount());
+					p.setLocation(l);
+				}
+			}
+			
+			TaskGenerator generator = (TaskGenerator) XMLUtil.getBean("TaskGeneratorconfig", 5);
+			helperComponent.addTasks(generator.generateTask(returnOrders));
+			returnOrders.clear();
 		}
-		
-		TaskGenerator generator = (TaskGenerator) XMLUtil.getBean("TaskGeneratorconfig", 5);
-		helperComponent.addTasks(generator.generateTask(returnOrders));
-		returnOrders.clear();
 		
 		helperComponent.checkout();
 	}

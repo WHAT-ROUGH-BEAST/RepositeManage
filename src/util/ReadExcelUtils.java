@@ -210,8 +210,7 @@ public class ReadExcelUtils
 			Product p = (Product) XMLUtil.getBean("Productconfig");
 			p.setId((String) row.get(1));
 			p.setAmount((int) Double.parseDouble((String) row.get(2)));
-			p.setLocation(((LocationFactory) XMLUtil.
-					getBean("LocationFactoryconfig")).getLocation());
+			p.setLocation(reposite.search(p.getId()).getLocation());
 
 			temp.addProduct(p);
 		}

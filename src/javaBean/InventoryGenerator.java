@@ -6,16 +6,16 @@ import util.XMLUtil;
 
 public class InventoryGenerator
 {
-	private ArrayList<accurateInventory> inventorys;
+	private ArrayList<AccurateInventory> inventorys;
 	
 	public InventoryGenerator()
 	{
-		inventorys = new ArrayList<accurateInventory>();
+		inventorys = new ArrayList<AccurateInventory>();
 	}
 	
-	public accurateInventory getInventory(String employeeName)
+	public AccurateInventory getInventory(String employeeName)
 	{
-		for (accurateInventory i : inventorys) 
+		for (AccurateInventory i : inventorys) 
 		{
 			if (i.getEmployeeName().equals(employeeName))
 			{
@@ -30,8 +30,16 @@ public class InventoryGenerator
 	public void deployInventory(Reposite repo, 
 			String employeeName, String shelf, String time)
 	{
+		for (AccurateInventory i : inventorys)
+		{
+			if (i.getEmployeeName().equals(employeeName))
+				throw new RuntimeException("此员工已被分配任务");
+			if (i.getShelfName().equals(shelf))
+				throw new RuntimeException("此员货架被分配任务");
+		}
+		
 		Inventory inv = (Inventory) XMLUtil.getBean("Inventoryconfig", repo);
-		accurateInventory inventory = new accurateInventory(inv);
+		AccurateInventory inventory = new AccurateInventory(inv);
 		
 		inventory.setEmployeeName(employeeName);
 		inventory.setShelf(shelf);
@@ -42,7 +50,7 @@ public class InventoryGenerator
 	
 	public double getProgress(String employeeName)
 	{
-		for (accurateInventory i : inventorys)
+		for (AccurateInventory i : inventorys)
 		{
 			if (i.getEmployeeName().equals(employeeName))
 				return i.getProgress();
@@ -51,7 +59,7 @@ public class InventoryGenerator
 		throw new RuntimeException("没有盘点任务给: " + employeeName);
 	}
 	
-	public void done(accurateInventory inventory)
+	public void done(AccurateInventory inventory)
 	{
 		try
 		{
@@ -59,7 +67,7 @@ public class InventoryGenerator
 		}
 		catch (Exception e)
 		{
-			throw new RuntimeException("没有此盘点任务");
+			throw new RuntimeException("没有此盘点任务"); 
 		}
 		
 	}

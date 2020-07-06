@@ -91,7 +91,7 @@ public class GenerateTaskController implements DataShare
 		catch (Exception e)
 		{
 			e.printStackTrace();
-			UiUtil.showAlert("·Ç·¨Â·¾¶");
+			UiUtil.showAlert(e.getMessage());
 			return;
 		}
 	}

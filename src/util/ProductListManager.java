@@ -3,6 +3,8 @@ package util;
 import java.util.Iterator;
 import java.util.List;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import javaBean.Product;
 
 public abstract class ProductListManager
@@ -14,7 +16,7 @@ public abstract class ProductListManager
 		this.products = products;
 	}
 	
-	public abstract void addProduct(Product product) throws Exception;
+	public abstract void addProduct(Product product) throws Exception, SQLServerException;
 	
 	public void removeProduct(String id)
 	{

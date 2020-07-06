@@ -2,6 +2,8 @@ package javaBean;
 
 import java.util.*;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import util.Location;
 import util.LocationFactory;
 import util.ProductListManager;
@@ -66,7 +68,7 @@ public abstract class Shelf implements ProductListContainer
 		this.name = name;
 	}
 	
-	public void addProduct(Product product) throws Exception
+	public void addProduct(Product product) throws Exception, SQLServerException
 	{
 		if (null == product)
 			throw new RuntimeException();

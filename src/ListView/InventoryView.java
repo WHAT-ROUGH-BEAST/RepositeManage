@@ -5,7 +5,7 @@ import java.io.IOException;
 import application.UiUtil;
 import javaBean.Inventory;
 import javaBean.Product;
-import javaBean.accurateInventory;
+import javaBean.AccurateInventory;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.*;
@@ -39,7 +39,7 @@ public class InventoryView
 		
 		label.setText("ID:" + product.getId() + 
 				"   \t " + product.getLocation() + "\n" +
-				((accurateInventory) inventory).getTime());
+				((AccurateInventory) inventory).getTime());
 		amountText.setText(product.getAmount()+"");
 	}
 	

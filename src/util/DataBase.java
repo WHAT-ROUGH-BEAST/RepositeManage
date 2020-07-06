@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import javaBean.OnlyReposite;
 import javaBean.Order;
 import javaBean.Product;
@@ -25,7 +27,7 @@ interface RepositeDB
 	
 //	void addRepo(String name);
 //	void addShelf(String name);
-	void addProduct(Product product);
+	void addProduct(Product product) throws SQLException;
 	
 //	void removeRepo(String name);
 //	void removeShelf(String name);
@@ -187,9 +189,10 @@ public class DataBase implements RepositeDB
 
 	
 	@Override
-	public void addProduct(Product product)
+	public void addProduct(Product product) throws SQLServerException
 	{
-		String sql = "INSERT INTO Reposite " + "\n"
+		String sql = "SET XACT_ABORT ON \n"
+				+ "INSERT INTO Reposite " + "\n"
 				+ "VALUES (" + toDBString(product.getId()) + ", " 
 				+ product.getAmount() + ", "
 				+ toDBString(product.getLocation().getRepo()) + ", "

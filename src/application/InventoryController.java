@@ -12,7 +12,7 @@ import javaBean.Order;
 import javaBean.Product;
 import javaBean.Reposite;
 import javaBean.Shelf;
-import javaBean.accurateInventory;
+import javaBean.AccurateInventory;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
@@ -29,7 +29,7 @@ public class InventoryController implements InventoryShare
 	private Reposite reposite;
 	private String name;
 	private InventoryGenerator inventoryGenerator;
-	private accurateInventory inventory;
+	private AccurateInventory inventory;
 	
 	private ArrayList<Product> list;
 	
@@ -103,7 +103,7 @@ public class InventoryController implements InventoryShare
 		}
 		catch (Exception e)
 		{
-			UiUtil.showAlert("�Ҳ���Ӧ��Ʒ");
+			UiUtil.showAlert(e.getMessage());
 		}
 	}
 	

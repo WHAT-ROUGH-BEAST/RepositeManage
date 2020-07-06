@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import util.Location;
 import util.LocationFactory;
 import util.XMLUtil;
@@ -116,10 +118,18 @@ public abstract class Reposite
 		
 		Product product = (Product) XMLUtil.getBean("Productconfig");
 		product.setAmount(amount);
-		product.setId(id);
-		
+		product.setId(id);		
 		Location l = ((LocationFactory) XMLUtil.
 				getBean("LocationFactoryconfig")).getLocation();
+		
+		if (null != this.search(id))
+		{
+			Product p = this.search(id);
+			p.setAmount(p.getAmount() + amount);
+			Product.updateDBProduct(p);
+			return p.getLocation();
+		}
+		
 		l.setLocation(this.name, "null", 0);
 		product.setLocation(l); 
 		
@@ -129,6 +139,10 @@ public abstract class Reposite
 			{
 				s.addProduct(product);
 				return l;
+			}
+			catch (SQLServerException e)
+			{
+				continue;
 			}
 			catch (Exception e)
 			{

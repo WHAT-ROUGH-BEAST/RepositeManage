@@ -3,6 +3,8 @@ package application;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.microsoft.sqlserver.jdbc.SQLServerException;
+
 import javaBean.Product;
 import javaBean.Reposite;
 import javaBean.Shelf;
